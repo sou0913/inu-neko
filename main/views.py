@@ -48,7 +48,7 @@ def predict():
         image.save(filepath)
         
         image = load_and_preprocess_image(filepath)
-        image = (np.expand_dims(image, 0))
+        image = (tf.expand_dims(image, 0))
         preds = model.predict(image)
         neko_prob = round(preds[0][0]*100)
         inu_prob = round(preds[0][1]*100)

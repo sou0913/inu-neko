@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 
 import os
 
-UPLOAD_FOLDER = './uploads'
+UPLOAD_FOLDER = 'main/static/uploads'
 ALLOWED_EXTENSIONS = set(['jpg'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
@@ -28,10 +28,11 @@ def load_and_preprocess_image(path):
 
 model = keras.models.load_model('inu.h5')
 
-@app.route('/', methods=["GET", "POST"])
+@app.route('/', methods=["GET"])
 def show_entries():
     
     return render_template("mainpage.html")
+
 @app.route('/predict', methods=["GET","POST"])
 def predict():
     if 'image' not in request.files:
@@ -51,4 +52,5 @@ def predict():
         preds = model.predict(image)
         neko_prob = round(preds[0][0]*100)
         inu_prob = round(preds[0][1]*100)
-        return render_template("result.html", neko_prob=neko_prob, inu_prob=inu_prob)
+        path = "/static/uploads/" + filename
+        return render_template("result.html", neko_prob=neko_prob, inu_prob=inu_prob, path = path)

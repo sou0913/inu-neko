@@ -1,5 +1,5 @@
-python=3.7.0
-tensorflow==2.0.0
+
+tensorflow==2.0.0a0
 Flask
 gunicorn
 h5py

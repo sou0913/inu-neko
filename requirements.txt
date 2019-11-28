@@ -3,7 +3,5 @@ tensorflow
 Flask
 gunicorn
 h5py
-numpy
+numpy==1.17.4
 Pillow
-
-

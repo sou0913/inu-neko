@@ -17,9 +17,11 @@ TensorFlow 2.0.0
 
 ## 制作上のポイント
 - 機械学習に使う画像は、GoogleChromeからスクレイピングをして集めました。（勉強用などに用意されているデータセットを使いませんでした）
+
 <a href="https://gyazo.com/dd2f61596dd87d0cfb72b4bf83f8db35"><img src="https://i.gyazo.com/dd2f61596dd87d0cfb72b4bf83f8db35.gif" alt="Image from Gyazo" width="400"/></a>
 
 - 正答率がなかなか上がらなかったので、事前に訓練されたモデル(MobileNet V2)を利用する転移学習を取り入れました。その結果、テスト画像で95％を超える正解率を達成しました。
+
 <a href="https://gyazo.com/e7b1bd67eabbbac60ab2841d3133943f"><img src="https://i.gyazo.com/e7b1bd67eabbbac60ab2841d3133943f.gif" alt="Image from Gyazo" width="400"/></a>
  
 ## 制作で学んだこと

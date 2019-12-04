@@ -50,7 +50,9 @@ def predict():
         inu_prob = round(preds[0][1]*100)
         path = "/static/uploads/" + filename
         return render_template("result.html", neko_prob=neko_prob, inu_prob=inu_prob, path = path)
-
+    else:
+        message = "すみません！画像を変えてください!"
+        return render_template("error.html", message=message)
 
 if __name__=='__main__':
     application.debug = True

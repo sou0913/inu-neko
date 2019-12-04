@@ -1,6 +1,7 @@
 main/static/uploads
-inuneko
+inuneko-env
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+.DS_Store

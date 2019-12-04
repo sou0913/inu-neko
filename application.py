@@ -9,8 +9,9 @@ import os
 application = Flask(__name__) 
 
 UPLOAD_FOLDER = 'static/uploads'
-ALLOWED_EXTENSIONS = set(['jpg'])
+ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'JPEG'])
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 def preprocess_image(image):
@@ -29,7 +30,6 @@ model = keras.models.load_model('inu.h5')
 
 @application.route('/', methods=["GET"])
 def show_entries():
-    
     return render_template("mainpage.html")
 
 @application.route('/predict', methods=["GET","POST"])
@@ -43,7 +43,6 @@ def predict():
         filename = secure_filename(image.filename)
         filepath = os.path.join(application.config['UPLOAD_FOLDER'], filename)
         image.save(filepath)
-        
         image = load_and_preprocess_image(filepath)
         image = (tf.expand_dims(image, 0))
         preds = model.predict(image, steps=1)

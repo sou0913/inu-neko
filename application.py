@@ -7,13 +7,15 @@ from werkzeug.utils import secure_filename
 import os
 
 application = Flask(__name__) 
-
+# 拡張子JPEGのみアップロード可能
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'JPEG'])
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# モデルは192x192のnumpy配列、各要素は-1〜1のオーダーで受け付けるので、それに合わせ整形する。
 def preprocess_image(image):
     image = tf.image.decode_jpeg(image, channels=3)
     image = tf.image.resize(image, [192, 192])
@@ -44,7 +46,9 @@ def predict():
         filepath = os.path.join(application.config['UPLOAD_FOLDER'], filename)
         image.save(filepath)
         image = load_and_preprocess_image(filepath)
+        # 画像をモデルで検証するに当たって、次元を1増やす。本来はこの次元には、バッチ数が記載されている。
         image = (tf.expand_dims(image, 0))
+        # 犬、または猫の確率を予想。
         preds = model.predict(image, steps=1)
         neko_prob = round(preds[0][0]*100)
         inu_prob = round(preds[0][1]*100)
